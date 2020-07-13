@@ -20,7 +20,7 @@ module.exports = {
 
          const userProjects = await Project.findAll({
             where: { sub_fk: sub },
-            include: { association: 'tasks' }
+            //include: { association: 'tasks' }
          });
          return res.status(200).json(userProjects)
 
