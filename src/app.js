@@ -11,17 +11,17 @@ const routes = require('./routes');
 const checkProjectsLate = require('./app/functions/checkProjectsLate');
 
 const app = express();
-const appOrigin = process.env.appOrigin || 'http://localhost:3000';
+const appOrigin = process.env.appOrigin;
 
 var jwtCheck = jwt({
   secret: jwks.expressJwtSecret({
       cache: true,
       rateLimit: true,
       jwksRequestsPerMinute: 5,
-      jwksUri: process.env.jwksUri || 'https://dev-wvdui993.us.auth0.com/.well-known/jwks.json'
+      jwksUri: process.env.jwksUri
 }),
-audience: process.env.audience || 'https://dev-wvdui993.us.auth0.com/api/v2/',
-issuer: process.env.issuer || 'https://dev-wvdui993.us.auth0.com/',
+audience: process.env.audience,
+issuer: process.env.issuer,
 algorithms: ['RS256']
 });
 
