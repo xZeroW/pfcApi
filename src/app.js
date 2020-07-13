@@ -11,7 +11,17 @@ const routes = require('./routes');
 const checkProjectsLate = require('./app/functions/checkProjectsLate');
 
 const app = express();
-const appOrigin = process.env.appOrigin;
+var whitelist = ['http://localhost:3000', 'https://myproject-five.now.sh']
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+//const appOrigin = process.env.appOrigin;
 
 var jwtCheck = jwt({
   secret: jwks.expressJwtSecret({
@@ -25,7 +35,7 @@ issuer: process.env.issuer,
 algorithms: ['RS256']
 });
 
-app.use(cors({ origin: appOrigin }));
+app.use(cors(corsOptions));
 app.use(jwtCheck);
 app.use(helmet());
 app.use(express.json());
