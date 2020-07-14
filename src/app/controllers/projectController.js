@@ -95,14 +95,13 @@ module.exports = {
 
          const project = await Project.findByPk(projectid);
 
-         if(project.sub_fk != sub) {
+         if(project.sub_fk !== sub) {
             return res.status(403).json({ error: 'Unathorized operation' });
          };
 
          await Project.update({ title, description, status }, {
             where: {
-               id: projectid,
-               sub
+               id: projectid
             }
          });
 
@@ -114,14 +113,14 @@ module.exports = {
       }
    },
    
-   dalete: async (req, res) => {
+   delete: async (req, res) => {
       try {
          const { projectid } = req.params;
-         const user = req.user;
+         const { sub } = req.user;
    
          const project = await Project.findByPk(projectid);
    
-         if(!project || project.user_id != user.id) {
+         if(!project || project.sub_fk !== sub) {
            return res.status(403).json({ error: 'Unathorized operation' });
          };
             

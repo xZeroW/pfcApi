@@ -46,7 +46,7 @@ Route.delete('/projects/:projectid', celebrate({
   [Segments.HEADERS]: Joi.object({
     authorization: Joi.string().required()
   }).unknown()
-}), projectController.dalete);
+}), projectController.delete);
 
 
 //Tasks routes
