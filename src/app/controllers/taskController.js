@@ -27,7 +27,7 @@ module.exports = {
   
   create: async (req, res) => {
     try {
-      //const { title, description, completion_date, status } = req.body;
+      const { title, description, completion_date, status } = req.body;
       const { projectid } = req.params;
       const { sub } = req.user; // declared but never read
 
@@ -37,7 +37,13 @@ module.exports = {
         return res.status(401).json({ error: 'Unathorized operation' });
       };
 
-     const taskCreated = await Task.create(req.body);
+     const taskCreated = await Task.create({
+      project_id: projectid,
+      title,
+      description, 
+      completion_date, 
+      status
+     });
 
      return res.status(201).json(taskCreated);
 
